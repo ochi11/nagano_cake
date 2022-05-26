@@ -14,12 +14,13 @@ Rails.application.routes.draw do
   get '/' => 'homes#top'
   get '/admin' => 'admin/homes#top'
   get '/about' => 'homes#about'
+  #get 'admin/genres/:id' => 'admin/genres#index'
   root to: 'top#index'
 
   namespace :admin do
     resources :items
     resources :homes
-    resources :genres
+    resources :genres, only: [:edit, :update, :create, :index]
     resources :customers
     resources :orders
     resources :order_details

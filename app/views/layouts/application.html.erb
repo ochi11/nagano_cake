@@ -9,48 +9,16 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
-  <div id="header" style="border-bottom:1px solid #dad7d7">
+    <div id="container">
+    <header>
+        <% if admin_signed_in? %>
+            <%= render 'layouts/adminheader' %>
+        <% else %>
+            <%= render 'layouts/header' %>
+        <% end %>
+    </header>
 
-      <!-- 退会済みユーザーの場合は表示を変える。 -->
-      	<% if customer_signed_in? && current_customer.is_deleted? %>
-      			<p style="text-align:right; padding: 10px 10px 0 0; color:#694D49;">
-      				あなたは退会済みです
-      			</p>
-      	<% elsif customer_signed_in? && !current_customer.is_deleted %>
-      			<p style="text-align:right; padding: 10px 10px 0 0; color:#694D49;">
-      				ようこそ、
-      				<%= link_to current_customer.first_name, customer_path(current_customer) %>
-      				さん
-      			</p>
-      	<% end %>
-
-      <%= link_to root_path do %>
-      		<img src="/assets/images/logo.png" style="height:100px; display:block; margin: 0 auto">
-      <% end %>
-
-
-      <div id="box" style="margin: 0 auto 20px; text-align: center;">
-      	<% if customer_signed_in? && !current_customer.is_deleted? %>
-      <!-- ログイン時表示される内容-->
-      	<ul>
-      		<li><%= link_to 'ABOUT US', about_path %></li>
-      		<li><%= link_to 'SHOPPING', cart_items_path %></li>
-      		<li><%= link_to 'LOGOUT', destroy_customer_session_path, method: :delete %></li>
-      	</ul>
-
-      	<% else %>
-      <!-- ログアウト時に表示される内容 -->
-      	<ul>
-      		<li><%= link_to 'About', about_path %></li>
-      		<li><%= link_to '商品一覧', items_path %></li>
-      		<li><%= link_to '新規登録', new_customer_registration_path %></li>
-      		<li><%= link_to 'ログイン', new_customer_session_path %></li>
-      	</ul>
-      	<% end %>
-      </div>
-  </div>
-      <%= yield %>
   </body>
+
 </html>
