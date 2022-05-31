@@ -2,11 +2,11 @@
   <div id="header" style="border-bottom:1px solid #dad7d7">
 
       <!-- 退会済みユーザーの場合は表示を変える。 -->
-      	<% if customer_signed_in? && current_customer.is_deleted? %>
+      	<% if customer_signed_in? && current_customer.is_active %>
       			<p style="text-align:right; padding: 10px 10px 0 0; color:#694D49;">
       				あなたは退会済みです
       			</p>
-      	<% elsif customer_signed_in? && !current_customer.is_deleted %>
+      	<% elsif customer_signed_in? && !current_customer.is_active %>
       			<p style="text-align:right; padding: 10px 10px 0 0; color:#694D49;">
       				ようこそ、
       				<%= link_to current_customer.first_name, customer_path(current_customer) %>
@@ -15,28 +15,24 @@
       	<% end %>
 
       <%= link_to root_path do %>
-      		<img src="/assets/images/logo.png" style="height:100px; display:block; margin: 0 auto">
+      		<%= image_tag 'logo.png', size: "100x100" %>
       <% end %>
 
 
       <div id="box" style="margin: 0 auto 20px; text-align: center;">
-      	<% if customer_signed_in? && !current_customer.is_deleted? %>
+      	<% if customer_signed_in? && !current_customer.is_active %>
       <!-- ログイン時表示される内容-->
-      	<ul>
-      		<li><%= link_to '商品一覧', items_path %></li>
+          <%= link_to '商品一覧', items_path, class:"btn btn-primary text-dark bg-light" %>
 
-      		<li><%= link_to '注文履歴一覧', orders_path %></li>
-      		<li><%= link_to 'LOGOUT', destroy_customer_session_path, method: :delete %></li>
-      	</ul>
+      		<%= link_to '注文履歴一覧', orders_path, class:"btn btn-primary text-dark bg-light" %>
+      		<%= link_to 'ログアウト', destroy_customer_session_path, class:"btn btn-primary text-dark bg-light", method: :delete %>
 
       	<% else %>
       <!-- ログアウト時に表示される内容 -->
-      	<ul>
-      		<li><%= link_to 'About', about_path %></li>
-      		<li><%= link_to '商品一覧', items_path %></li>
-      		<li><%= link_to '新規登録', new_customer_registration_path %></li>
-      		<li><%= link_to 'ログイン', new_customer_session_path %></li>
-      	</ul>
+          <%= link_to 'About', about_path, class:"btn btn-primary text-dark bg-light" %>
+          <%= link_to '商品一覧', items_path, class:"btn btn-primary text-dark bg-light" %>
+          <%= link_to '新規登録', new_customer_registration_path, class:"btn btn-primary text-dark bg-light" %>
+          <%= link_to 'ログイン', new_customer_session_path, class:"btn btn-primary text-dark bg-light" %>
       	<% end %>
       </div>
   </div>

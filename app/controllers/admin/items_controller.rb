@@ -31,7 +31,10 @@ class Admin::ItemsController < ApplicationController
     @item = Item.find(params[:id])
     if @item.update(item_params)
       flash[:success] = "更新に成功しました"
-      redirect_to admin_items_path
+      redirect_to admin_item_path
+    else
+      flash[:warning] = "入力内容を確認してください"
+      render :show
     end
   end
 
