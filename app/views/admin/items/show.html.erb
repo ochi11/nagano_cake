@@ -2,7 +2,11 @@
   <div class="col-xs-1" ></div>
   <div class="col-xs-5" style ="margin: 100px 0 100px 0">
     <h2>商品詳細</h2>
+  <% if @item.image.attached? %>
     <%= image_tag @item.image, size: "100x100" %>
+  <% else %>
+    <%= image_tag 'no_image', size: "100x100" %>
+  <% end %>
   </div>
   <div class="col-xs-6" style ="margin: 100px 0 100px 0">
 
