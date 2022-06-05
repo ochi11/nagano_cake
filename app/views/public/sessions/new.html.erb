@@ -1,13 +1,15 @@
-<h2>Log in</h2>
+<div class="container" style = "width: 50%; margin: 20px auto;" >
+<h4 style = "margin-bottom: 20px; border-left: 2px solid #2D6F4C; padding: 10px; ">ログイン</h4>
+<p style = "margin-bottom: 20px; border-left: 2px solid #2D6F4C; padding: 10px; ">会員の方はこちらからログイン</p>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
+  <div class="form-group">
+    <label class="col-sm-2 col-form-label">メールアドレス</label>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
+  <div class="form-group">
+    <label class="col-sm-2 col-form-label">パスワード</label>
     <%= f.password_field :password, autocomplete: "current-password" %>
   </div>
 
@@ -18,9 +20,14 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
+    <div class="actions">
+      <%= f.submit "ログイン", class:"btn btn-success", style:"display:block; margin: 2px auto;"%>
+    </div>
 <% end %>
 
-<%= render "public/shared/links" %>
+  <h4 style="margin-bottom: 20px; border-left: 2px solid #2D6F4C; padding: 10px;">会員登録がお済みでない方</h4>
+  <%= link_to new_customer_registration_path do %>
+    <span class="glyphicon glyphicon-chevron-left"><u>こちら</u></span>
+  <% end %>
+  <span>から新規登録を行ってください。</span>
+</div>

@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   get '/' => 'homes#top'
   get '/admin' => 'admin/homes#top'
   get '/about' => 'homes#about'
+  get '/customers/my_page' => 'public/customers#show'
   #get 'admin/genres/:id' => 'admin/genres#index'
   root to: 'top#index'
 
@@ -26,11 +27,13 @@ Rails.application.routes.draw do
     resources :order_details
   end
 
-  resources :homes
-  resources :items
-  resources :customers
-  resources :cart_items
-  resources :orders
-  resources :addresses
+  namespace :public do
+    resources :homes
+    resources :items
+    resources :customers
+    resources :cart_items
+    resources :orders
+    resources :addresses
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

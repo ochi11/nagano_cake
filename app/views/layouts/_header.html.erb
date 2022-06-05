@@ -2,14 +2,14 @@
   <div id="header" style="border-bottom:1px solid #dad7d7">
 
       <!-- 退会済みユーザーの場合は表示を変える。 -->
-      	<% if customer_signed_in? && current_customer.is_active %>
+      	<% if customer_signed_in? && !current_customer.is_active %>
       			<p style="text-align:right; padding: 10px 10px 0 0; color:#694D49;">
       				あなたは退会済みです
       			</p>
-      	<% elsif customer_signed_in? && !current_customer.is_active %>
+      	<% elsif customer_signed_in? && current_customer.is_active %>
       			<p style="text-align:right; padding: 10px 10px 0 0; color:#694D49;">
       				ようこそ、
-      				<%= link_to current_customer.first_name, customer_path(current_customer) %>
+      				<%= link_to current_customer.first_name, customers_my_page_path %>
       				さん
       			</p>
       	<% end %>
@@ -20,17 +20,17 @@
 
 
       <div id="box" style="margin: 0 auto 20px; text-align: center;">
-      	<% if customer_signed_in? && !current_customer.is_active %>
+      	<% if customer_signed_in? && current_customer.is_active %>
       <!-- ログイン時表示される内容-->
-          <%= link_to '商品一覧', items_path, class:"btn btn-primary text-dark bg-light" %>
+          <%= link_to '商品一覧', public_items_path, class:"btn btn-primary text-dark bg-light" %>
 
-      		<%= link_to '注文履歴一覧', orders_path, class:"btn btn-primary text-dark bg-light" %>
+      		<%= link_to '注文履歴一覧', public_orders_path, class:"btn btn-primary text-dark bg-light" %>
       		<%= link_to 'ログアウト', destroy_customer_session_path, class:"btn btn-primary text-dark bg-light", method: :delete %>
 
       	<% else %>
       <!-- ログアウト時に表示される内容 -->
           <%= link_to 'About', about_path, class:"btn btn-primary text-dark bg-light" %>
-          <%= link_to '商品一覧', items_path, class:"btn btn-primary text-dark bg-light" %>
+          <%= link_to '商品一覧', public_items_path, class:"btn btn-primary text-dark bg-light" %>
           <%= link_to '新規登録', new_customer_registration_path, class:"btn btn-primary text-dark bg-light" %>
           <%= link_to 'ログイン', new_customer_session_path, class:"btn btn-primary text-dark bg-light" %>
       	<% end %>
