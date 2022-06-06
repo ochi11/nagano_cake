@@ -1,11 +1,11 @@
 <div class="index-container" style="width:60%; margin: 20px auto;">
 
   <!-- 配送先登録フォーム -->
-      <h5>配送先/一覧</h5>
-      <%= form_for (@address) do |f| %>
+      <h5>配送先登録/一覧</h5>
+      <%= form_with model: @address, url:public_addresses_path do |f| %>
         <table class="table table-bordered">
 	      <tr>
-		    <th>郵便番号</th>
+		    <th>郵便番号(ハイフンなし)</th>
 		    <td><%= f.text_field :postal_code %></td>
 	      </tr>
 	      <tr>
@@ -13,19 +13,11 @@
 		    <td><%= f.text_field :address, style: "width: 80%;" %></td>
 	      </tr>
 	      <tr>
-	  	    <th>電話番号</th>
-	  	    <td><%= f.text_field :telephone_number %></td>
-	      </tr>
-	      <tr>
-		    <th>姓/名</th>
-		    <td><%= f.text_field :last_name %>/<%= f.text_field :first_name %></td>
-	      </tr>
-	      <tr>
-	  	    <th>セイ/メイ</th>
-	  	    <td><%= f.text_field :last_name_kana %>/<%= f.text_field :first_name_kana %></td>
+		    <th>宛名</th>
+		    <td><%= f.text_field :name %></td>
 	      </tr>
 	    </table>
-	      <%= f.submit "登録する", class:"btn btn-primary btn-md" %>
+	      <%= f.submit "新規登録", class:"btn btn-primary btn-md" %>
       <% end %>
 
   <!-- 配送先一覧/編集/削除/ -->
@@ -34,10 +26,7 @@
 	  <tr>
   	  <th>郵便番号</th>
   		<th>住所</th>
-  		<th>電話番号</th>
   		<th>宛名</th>
-  		<th>あてな</th>
-  		<th></th>
 	  </tr>
     </thead>
 	<% @addresses.each do |address| %>
@@ -50,17 +39,11 @@
 			<%= address.address %>
 		  </td>
 		  <td>
-			<%= address.telephone_number %>
+			<%= address.name %>
 		  </td>
 		  <td>
-			<%= address.last_name %><%= address.first_name %>
-		  </td>
-		  <td>
-			<%= address.last_name_kana %><%= address.first_name_kana %>
-		  </td>
-		  <td>
-			<%= link_to "編集する", edit_address_path(address), class:"btn btn-primary btn-md" %>
-			<%= link_to "削除する", address_path(address), class:"btn btn-danger btn-md", method: :delete %>
+			<%= link_to "編集する", edit_public_address_path(address), class:"btn btn-primary btn-md" %>
+			<%= link_to "削除する", public_address_path(address), class:"btn btn-danger btn-md", method: :delete %>
 		  </td>
 	    </tr>
 	  </tbody>

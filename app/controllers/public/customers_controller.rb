@@ -1,23 +1,15 @@
 class Public::CustomersController < ApplicationController
   def show
-    @customer = Customer.find_by(params[:id])
+    @customer = Customer.find(current_customer.id)
   # 他のcustomerのアクセス阻止
-    unless current_customer.nil? || current_customer.id == @customer.id
-      flash[:warning] = "アクセス権がありません"
-      redirect_to root_path(current_customer)
-    end
   end
 
   def edit
-    @customer = Customer.find_by(params[:id])
-    unless current_customer.nil? || current_customer.id == @customer.id
-      flash[:warning] = "アクセス権がありません"
-      redirect_to root_path(current_customer)
-    end
+    @customer = Customer.find(current_customer.id)
   end
 
   def update
-    @customer = Customer.find_by(params[:id])
+    @customer = Customer.find(current_customer.id)
     if @customer.update(customer_params)
        flash[:success] =  "更新に成功しました"
        redirect_to public_customers_path(current_customer)
@@ -32,7 +24,7 @@ class Public::CustomersController < ApplicationController
   end
 
   def withdraw
-    @customer = Customer.find(params[:id])
+    @customer = Customer.find(current_customer.id)
     # is_deletedカラムをtrueに変更することにより削除フラグを立てる
     @customer.update(is_deleted: true)
     reset_session

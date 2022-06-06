@@ -17,7 +17,7 @@
 			<% end %>
 		</td>
 		<td><%= customer.email %></td>
-		<% if customer.is_active == true %>
+		<% if customer.is_deleted == false %>
 			<td><span class="badge" style="background:green">有効</span></td>
 		<% else %>
 			<td><span class="badge" style="background:red">退会</span></td>

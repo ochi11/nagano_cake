@@ -1,14 +1,9 @@
 class Public::ItemsController < ApplicationController
   #商品一覧ページ
-	def index
-        if params["genre"]
-        	@items = Item.active.where(genre_id: params["genre"])
-        else
-			    @items = Item.active
-        end
-          @genres = Genre.active
-
-	end
+    def index
+          @items = Item.all
+          @genres = Genre.all
+    end
 
 # 顧客側の商品詳細ページ
 	def show
@@ -33,6 +28,6 @@ class Public::ItemsController < ApplicationController
 
 #ストロングパラメーター
 	def item_params
-		params.require(:item).permit(:image_id, :name, :introduction, :price, :genre_id)
+		params.require(:item).permit(:image_id, :name, :introduction, :price, :genre_id, :is_active)
 	end
 end

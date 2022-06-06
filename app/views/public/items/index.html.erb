@@ -11,8 +11,12 @@
    		 <div class="row">
 			<% @items.each do |item| %>
 					<div class="col-xs-3 each_item">
-						<%= link_to item_path(item) do %>
-						  <%= attachment_image_tag item, :image, style:"width:100%; bottom: 45px;" %>
+						<%= link_to public_item_path(item) do %>
+						  <% if item.image.attached? %>
+						    <%= image_tag item.image, size: "100x100" %>
+						  <% else %>
+						    <%= image_tag 'no_image', size: "100x100" %>
+						  <% end %>
 						<% end %>
 						<%= item.name %>
 						<%= item.price %>円<br>
