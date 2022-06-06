@@ -11,6 +11,11 @@ class Customer < ApplicationRecord
   #注文履歴との紐付け
   has_many :orders, dependent: :destroy
 
+  #退会済みのユーザーがログインできないようにする
+  def active_for_authentication?
+    super && (is_deleted == false)
+  end
+
   #validation
   #validates :last_name, format: { with: /\A[ぁ-んァ-ン一-龥]/}
   #validates :first_name, format: { with: /\A[ぁ-んァ-ン一-龥]/}

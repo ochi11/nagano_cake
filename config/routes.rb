@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get '/admin' => 'admin/homes#top'
   get '/about' => 'homes#about'
   get '/customers/my_page' => 'public/customers#show'
+  get '/customers/edit' => 'public/customers#edit'
   #get 'admin/genres/:id' => 'admin/genres#index'
   root to: 'top#index'
 
@@ -30,7 +31,12 @@ Rails.application.routes.draw do
   namespace :public do
     resources :homes
     resources :items
-    resources :customers
+    resource :customers do
+      collection do
+        get 'unsubscribe'
+        patch 'withdraw'
+      end
+    end
     resources :cart_items
     resources :orders
     resources :addresses
