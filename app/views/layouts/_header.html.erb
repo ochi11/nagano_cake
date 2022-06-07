@@ -25,7 +25,7 @@
           <%= link_to 'マイページ', customers_my_page_path, class:"btn btn-primary text-dark bg-light" %>
           <%= link_to '商品一覧', public_items_path, class:"btn btn-primary text-dark bg-light" %>
 
-      		<%= link_to '注文履歴一覧', public_orders_path, class:"btn btn-primary text-dark bg-light" %>
+      		<%= link_to 'カート', public_cart_items_path, class:"btn btn-primary text-dark bg-light" %>
       		<%= link_to 'ログアウト', destroy_customer_session_path, class:"btn btn-primary text-dark bg-light", method: :delete %>
 
       	<% else %>

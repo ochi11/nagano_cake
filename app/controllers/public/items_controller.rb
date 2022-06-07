@@ -9,19 +9,6 @@ class Public::ItemsController < ApplicationController
 	def show
 		@item = Item.find(params[:id])
 		@cart_item = CartItem.new(item_id: @item.id)
-
-	#管理者は買い物はできないが、詳細ページの閲覧はできる。
-		if current_user.nil?
-			items = CartItem.all
-		else
-			items = current_user.cart_items
-		end
-
-	#既にカートに商品が入っているときは、商品一覧ページに戻る
-		if items.pluck(:item_id).include?(@cart_item.item_id)
-			flash[:warning] = "その商品はカートに入っています"
-			redirect_to root_path
-		end
 	end
 
 	private

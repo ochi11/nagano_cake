@@ -1,14 +1,8 @@
-<div class="row" style="width: 90%; margin: 20px auto;">
-	<img src="/assets/tart1" alt="非表示", class="eyecatch">
-		<h1>itemS</h1>
-		<span ><strong>ジャンルで検索</strong></span>
-			<% @genres.each do |genre| %>
-	 				<%= link_to root_path(genre: genre.id) do %>
-	 					<span style = "background-color: #2D714C" class="badge"><%= genre.name %></span>
-	 				<% end %>
-   		 		<% end %>
+		<h1>商品一覧</h1>
+<div class="row" style="width: 80%; margin: 20px auto;">
 
-   		 <div class="row">
+
+   	<div class="row">
 			<% @items.each do |item| %>
 					<div class="col-xs-3 each_item">
 						<%= link_to public_item_path(item) do %>
@@ -17,10 +11,11 @@
 						  <% else %>
 						    <%= image_tag 'no_image', size: "100x100" %>
 						  <% end %>
-						<% end %>
-						<%= item.name %>
-						<%= item.price %>円<br>
-						<%= item.introduction%>
+						  <br>
+						  <%= item.name %>
+					<% end %>
+            <br>
+						<%= item.price %>円
 					</div>
 			<% end %>
 		</div>
