@@ -2,6 +2,7 @@
   <div class="col-xs-1" ></div>
   <div class="col-xs-5" style ="margin: 100px 0 100px 0">
     <h2>商品詳細</h2>
+    <%= binding.pru %>
   <% if @item.image.attached? %>
     <%= image_tag @item.image, size: "100x100" %>
   <% else %>

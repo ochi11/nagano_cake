@@ -37,8 +37,17 @@ Rails.application.routes.draw do
         patch 'withdraw'
       end
     end
-    resources :cart_items
-    resources :orders
+    resources :cart_items do
+      collection do
+        delete 'destroy_all'
+      end
+    end
+    resources :orders do
+      collection do
+        get 'complete'
+        post 'confirm'
+      end
+    end
     resources :addresses
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
