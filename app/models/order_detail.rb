@@ -4,7 +4,7 @@ class OrderDetail < ApplicationRecord
   belongs_to :order
 
     def add_tax_price
-      (self.price * 1.1).round
+      (price * 1.1).floor
     end
 
   enum product_status: {製作不可:0,製作待ち:1,製作中:2,製作完了:3}

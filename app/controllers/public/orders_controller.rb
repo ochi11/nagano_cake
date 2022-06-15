@@ -25,7 +25,19 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
-
+    @order = Order.new(order_params)
+    if params[:_add] == "customersAdd"
+        @order.order_postal_code = current_customer.postal_code
+        @order.order_address = current_customer.address
+        @order.order_name = current_customer.last_name + current_customer.first_name
+    elsif params[:_add] == "Adds"
+      @address = Address.find(params[:order][:address_id])
+      @order.order_postal_code = @address.postal_code
+      @order.order_address = @address.address
+      @order.order_name = @address.name
+    end
+    @customer = Customer.find(current_customer.id)
+		@cart_items = current_customer.cart_items
   end
 
   def complete

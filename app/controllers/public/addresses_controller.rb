@@ -13,12 +13,12 @@ class Public::AddressesController < ApplicationController
        if @address.save
            flash[:success] = "登録に成功しました"
            redirect_to public_addresses_path
-        else
+       else
             @customer = current_customer
             @addresses = @customer.addresses.all
             flash[:warning] = "入力内容を確認してください"
             render :index
-        end
+       end
     end
 
     #配送先削除

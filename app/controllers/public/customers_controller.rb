@@ -1,7 +1,6 @@
 class Public::CustomersController < ApplicationController
   def show
     @customer = Customer.find(current_customer.id)
-  # 他のcustomerのアクセス阻止
   end
 
   def edit
