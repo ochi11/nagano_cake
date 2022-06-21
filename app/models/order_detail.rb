@@ -1,6 +1,5 @@
 class OrderDetail < ApplicationRecord
-  belongs_to :items
-  belongs_to :home
+  belongs_to :item
   belongs_to :order
 
     def add_tax_price

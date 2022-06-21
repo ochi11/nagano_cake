@@ -1,12 +1,11 @@
 class Public::OrdersController < ApplicationController
 
   def index
-    @customer = customer.find(params[:id])
-	  @orders = @customer.orders
+	  @orders = current_customer.orders
   end
 
   def show
-
+    @order = Order.find(current_customer.id)
   end
 
 #顧客の注文情報入力画面
@@ -21,7 +20,24 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
-
+    @cart_items = current_customer.cart_items.all
+    @order = current_customer.orders.new(order_params)
+    @order.postage = 800
+    if @order.save!
+      @cart_items.each do |cart_item|
+        @order_detail = OrderDetail.new
+        @order_detail.item_id = cart_item.item_id
+        @order_detail.amount = cart_item.amount
+        @order_detail.purchase_price = cart_item.item.add_tax_price
+        @order_detail.order_id = @order.id
+        @order_detail.save!
+      end
+        redirect_to complete_public_orders_path
+        @cart_items.destroy_all
+    else
+        @order = Order.new(order_params)
+        render :new
+    end
   end
 
   def confirm
