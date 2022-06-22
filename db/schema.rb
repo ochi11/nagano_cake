@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 2022_06_05_231916) do
     t.string "order_name", null: false
     t.integer "postage", null: false
     t.integer "billing_amount", null: false
-    t.integer "payment_mothod", default: 0, null: false
+    t.integer "payment_method", default: 0, null: false
     t.integer "status", default: 0, null: false
   end
 

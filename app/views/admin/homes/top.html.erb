@@ -14,8 +14,8 @@
     <% @orders.each do |order| %>
   	<tr>
   	  <td><%= link_to order[:created_at].strftime("%Y-%m-%d %H:%M"), admin_orders_path(order) %></td>
-  		<td><%= order.user.last_name %><%= order.user.first_name %></td>
-  		<td><%= order.order_details.sum(:quantity) %></td>
+  		<td><%= order.order_name %></td>
+  		<td><%#= order.order_detail.amount %></td>
   		<td><% case order.status when "入金待ち" %>
   		        <span class="badge" style="background: red;"><%= order.status %></span>
   		    <% when "入金確認" %>

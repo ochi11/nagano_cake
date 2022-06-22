@@ -5,7 +5,12 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find(current_customer.id)
+    @order = Order.find(params[:id])
+    @orders = @order.order_details
+    #@total =  0
+      #@orders.each do |order_detail|
+        #@total = @total + (order_detail.price * order_detail.amount)
+      #end
   end
 
 #顧客の注文情報入力画面
@@ -62,6 +67,10 @@ class Public::OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:customer_id, :payment_method, :order_address, :order_postal_code, :order_name, :postage, :billing_amount, :status)
+  end
+
+  def order_detail_params
+    params.require(:order_detail).permit(:item_id, :order_id, :purchase_price, :amount, :production_status)
   end
 
 end
