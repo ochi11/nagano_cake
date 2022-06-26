@@ -11,6 +11,7 @@ class Customer < ApplicationRecord
   #注文履歴との紐付け
   has_many :orders, dependent: :destroy
 
+
   #退会済みのユーザーがログインできないようにする
   def active_for_authentication?
     super && (is_deleted == false)

@@ -5,7 +5,7 @@
 <table class="table table-condensed">
 	<tr>
 		<th style="background: #dad7d7; border-bottom: 1px solid #fff;">会員ID</th>
-		<td><%= customer.id %></td>
+		<td><%= @customer.id %></td>
 	</tr>
 	<tr>
 		<th style="background: #dad7d7; border-bottom: 1px solid #fff;">氏名</th>
@@ -33,20 +33,20 @@
 	</tr>
 	<tr>
 			<td>
-		<%= @customer.id %>
-			<% if @customer.is_active %>
-					<span class="badge" style="background:#d72238;">有効</span>
-			<% else %>
-					<span class="badge" style="background:#8bce9a;">退会</span>
-			<% end %>
+		<% @customer.id %>
+		<% if @customer.is_deleted == false %>
+			<td><span class="badge" style="background:green">有効</span></td>
+		<% else %>
+			<td><span class="badge" style="background:red">退会</span></td>
+		<% end %>
 		</td>
 	</tr>
 </table>
 <hr>
-		<%= link_to edit_admins_customer_path(@customer) do %>
+		<%= link_to edit_admin_customer_path do %>
 					<span class="btn btn-info" style="display:inline-block;">編集する</span>
 		<% end %>
-		<%= link_to orders_path(id: @customer.id) do %>
+		<%= link_to admin_path(id: @customer.id) do %>
 					<span class="btn btn-success" style="display:inline-block;">注文履歴一覧を見る</span>
 		<% end %>
 
