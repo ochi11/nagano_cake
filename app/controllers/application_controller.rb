@@ -6,9 +6,7 @@ class ApplicationController < ActionController::Base
       customers_my_page_path(current_customer.id)
     end
 
-    def after_sign_up_path_for(resource)
-      customers_my_page_path(current_customer.id)
-    end
+
 
     protected
 

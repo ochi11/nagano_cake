@@ -5,6 +5,6 @@ class Admin::HomesController < ApplicationController
 
           private
   def order_params
-    params.require(:order).permit(:customer_id, :status)
+    params.require(:order).permit(:customer_id, :status, :order_name)
   end
 end

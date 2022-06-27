@@ -9,10 +9,12 @@
 	<% @items.each do |item| %>
 		<tr>
 		  <td>
+		  <%= link_to public_item_path(item.id) do %>
 		    <% if item.image.attached? %>
               <%= image_tag item.image, size: "100x100" %>
-			<% else %>
+			  <% else %>
 			   <%= image_tag 'no_image', size: "100x100" %>
+			  <% end %>
 			<% end %>
 			</td>
 			<td><%= item.name %></td>

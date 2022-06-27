@@ -1,5 +1,5 @@
 <div class="row" style="width:60%; margin:0 auto;">
-<%= form_with @order, url:admin_orders_path(@order), method: :patch do |f| %>
+<%= form_with model: @order, url:admin_order_path(@order), method: :patch do |f| %>
 <h4 style="margin-bottom: 20px; border-left: 2px solid #2D6F4C; padding: 10px;">注文履歴詳細</h4>
 
 	<table class="table table-bordered">
@@ -17,26 +17,25 @@
 		</tr>
 		<tr>
 			<th>配送先</th>
-			<td><%= order_postal_code %>
-					<%= order_address %>
+			<td><%= @order_postal_code %>
+					<%= @order_address %>
 					<br>
-					<%= @order.last_name %>
-					<%= @order.first_name %>
+					<%= @order.order_name %>
 			</td>
 		</tr>
 		<tr>
 			<th>支払方法</th>
-			<td><%= payment_method %></td>
+			<td><%= @order.payment_method_i18n %></td>
 		</tr>
 		<tr>
 			<th>注文ステータス</th>
 			<td>
-				<%= f.select :is_active,{入金待ち:0, 入金確認:1 ,製作中:2, 発送準備中:3, 発送済み:4} %>
+				<%= f.select :status, Order.statuses.keys %>
 				<%= f.submit "更新", class:"btn btn-primary btn-md" %>
 			</td>
 		</tr>
 	</table>
-
+ <% end %>
 
 	<table class="table table-bordered">
 		<tr>
@@ -44,26 +43,21 @@
 			<th>単価(税込)</th>
 			<th>数量</th>
 			<th>小計</th>
-			<th>制作ステータス</th>
+			<th>製作ステータス</th>
 		</tr>
 
 
-<%= f.fields_for :order_details do |i| %>
+<% @order_details.each do |order_detail| %>
 		<tr>
-			<td><%= i.object.@item.name %></td>
-			<td><%= @item.add_tax_price.to_s(:delimited) %></td>
-			<td><%= i.object.amount %></td>
-			<td><%= purchase_price(@item.add_tax_price,i.object.amount) %>円</td>
+			<td><%= order_detail.item.name %></td>
+			<td><%= order_detail.item.add_tax_price.to_s(:delimited) %></td>
+			<td><%= order_detail.amount %></td>
+			<td><%= order_detail.item.add_tax_price * order_detail.amount %>円</td>
 			<td>
-				<%= i.select :production_status, Orderdetails.production_statuses.keys.map{ |l| l } %>
-					<label>現在ステータス：</label>
-						<% case i.object.production_status when "製作待ち" %>
-							<span class="badge" style="background: red;"><%= i.object.production_status %></span>
-						<% when "製作中" %>
-							<span class="badge" style="background: green;"><%= i.object.production_status %></span>
-						<% when "製作完了" %>
-							<span class="badge" style="background: blue;"><%= i.object.production_status %></span>
-						<% end %>
+				<%= form_with model: order_detail, url:admin_order_detail_path(order_detail.id) do |f| %>
+					<%= f.select :production_status, OrderDetail.production_statuses.keys %>
+					<%= f.submit "更新", class:"btn btn-primary btn-md" %>
+				<% end %>
 			</td>
 		</tr>
 <% end %>
@@ -73,7 +67,7 @@
 	<table class="table table-bordered">
 		<tr>
 			<th style="width:30%;">商品合計</th>
-			<td><%= @items.sum(:price).add_tax_price.to_s(:delimited) %>円</td>
+			<td><%= @order.billing_amount - @order.postage %>円</td>
 		</tr>
 		<tr>
 			<th style="width:30%;">配送料</th>
@@ -81,12 +75,8 @@
 		</tr>
 		<tr>
 			<th style="width:30%;">請求金額合計</th>
-			<td><%= @items.sum(:price).add_tax_price.to_s(:delimited) + @order.postage %>円</td>
+			<td><%= @order.billing_amount %>円</td>
 		</tr>
 	</table>
 	<hr>
-	<div class="text-center">
-		<%= f.submit '更新する', class:"btn btn-success" %>
-	</div>
-<% end %>
 </div>

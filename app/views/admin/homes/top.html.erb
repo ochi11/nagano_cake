@@ -13,9 +13,16 @@
 
     <% @orders.each do |order| %>
   	<tr>
-  	  <td><%= link_to order[:created_at].strftime("%Y-%m-%d %H:%M"), admin_orders_path(order) %></td>
+  	  <td><%= link_to order[:created_at].strftime("%Y-%m-%d %H:%M"), admin_order_path(order) %></td>
   		<td><%= order.order_name %></td>
-  		<td><%#= order.order_detail.amount %></td>
+  		<td>
+  		  <%#= order.order_detail.amount %>
+  		  <% @total = 0 %>
+  			<% order.order_details.each do |order_detail| %>
+					<% @total += order_detail.amount %>
+				<% end %>
+				<%= @total %>
+			</td>
   		<td><% case order.status when "入金待ち" %>
   		        <span class="badge" style="background: red;"><%= order.status %></span>
   		    <% when "入金確認" %>
