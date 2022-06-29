@@ -3,6 +3,11 @@
 	</div>
 
 	<div class="col-xs-5" style ="margin: 100px 0 100px 0">
+	  <% if @item.image.attached? %>
+	    <%= image_tag @item.image, size: "100x100" %>
+	  <% else %>
+		<%= image_tag 'no_image', size: "100x100" %>
+	  <% end %>
 		<%#= image_tag @item.image, size: "200x200" %>
 	</div>
 
